@@ -20,17 +20,19 @@ class Produto extends Model implements JWTSubject
 
     public static $rules = array(
         'name' => 'required',
-        'price' => 'required',
+        'price' => 'required | numeric',
         'moeda' => 'required',
-        'quantidade' => 'required',
+        'quantidade' => 'required | numeric',
         'image'=>'required'
     );
 
     public static $messages = array(
         'name.required' => 'Campo NOME é requerido!',
         'price.required' => 'Campo preço é requerido!',
+        'price.required' => 'Campo preço deve ser numérico!',
         'moeda.required' => 'Campo moeda é requerido',
         'quantidade.required' => ' Campo "quantidade" é obrigatório o preenchimento!',
+        'quantidade.required' => 'Campo "quantidade" deve ser numérico!',
         'image.required' => 'Campo "imagem" é obrigatório o preenchimento'
     );
 
