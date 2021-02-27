@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMoedasTable extends Migration
+class CreateMarcasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class CreateMoedasTable extends Migration
      */
     public function up()
     {
-        Schema::create('moedas', function (Blueprint $table) {
+        Schema::create('marcas', function (Blueprint $table) {
             $table->id();
-            $table->string("sigla")->unsigned();
-            $table->string("pais");
+            $table->string('name')->unsigned();
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ class CreateMoedasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('moedas');
+        Schema::dropIfExists('marcas');
     }
 }

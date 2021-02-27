@@ -18,7 +18,9 @@ class CreateProdutosTable extends Migration
             $table->string('name');
             $table->string('image')->nullable();
             $table->double('price');
-            $table->int('moeda_id');
+            $table->integer('moeda_id');
+            $table->integer('categoria_id');
+            $table->integer('marca_id');
             $table->bigInteger('quantidade');
             $table->timestamps();
         });

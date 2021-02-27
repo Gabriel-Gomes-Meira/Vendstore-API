@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Produto;
-use App\Models\Produtos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
+
 
 
 class ProdutosController extends Controller
@@ -55,11 +54,12 @@ class ProdutosController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        $validator = Validator::make($request->all(), Produto::$rules, Produto::$messages);
 
+        $validator = Validator::make($request->all(), Produto::$rules, Produto::$messages);
         if($validator->getMessageBag()->first()){
             return response()->json(['message' => $validator->getMessageBag()], 406);
         }
+
 
         $Produto = Produto::find($request->id);
         if(!$Produto) {

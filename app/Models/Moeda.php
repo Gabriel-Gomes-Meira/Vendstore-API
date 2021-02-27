@@ -16,13 +16,17 @@ class Moeda extends Model implements JWTSubject
     ];
 
     public static $rules = array(
-        'pais' => 'required',
-        'sigla' => 'required'
+        'pais' => 'required | string',
+        'sigla' => 'required | string | max:10 | unique:moedas,sigla'
     );
 
     public static $messages = array(
-        'pais.required' => 'Campo Pais é requerido!',
-        'sigla.required' => 'Campo sigla é requerido!'
+        'pais.required' => 'Campo "Pais" é requerido!',
+        'pais.string' => 'Campo "Pais" deve ser preenchido com uma string!',
+        'sigla.required' => 'Campo "sigla" é requerido!',
+        'sigla.unique' => 'Já há Moeda com essa sigla cadastrada!',
+        'sigla.string' => 'Campo "sigla" dever ser preenchido com uma string!',
+        'sigla.max' => 'Subrepos a capacidade máxima de caracteres em "sigla" (10)!'
     );
 
     public function getJWTIdentifier() {
