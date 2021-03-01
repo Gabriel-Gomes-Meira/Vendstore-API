@@ -23,9 +23,9 @@ class Produto extends Model implements JWTSubject
         'price' => 'sometimes | required | numeric',
         'quantidade' => 'sometimes | required | numeric',
         'image'=>'sometimes | required | image',
-        'moeda_id' => 'required | exists:App\Models\Moedas,id',
-        'categoria_id' => 'required | exists:App\Models\Categoria,id',
-        'marca_id' => 'required | exists:App\Models\Marca,id',
+        'moeda_id' => 'sometimes |required | exists:App\Models\Moedas,id',
+        'categoria_id' => 'sometimes | required | exists:App\Models\Categoria,id',
+        'marca_id' => 'sometimes | required | exists:App\Models\Marca,id',
 
     );
 

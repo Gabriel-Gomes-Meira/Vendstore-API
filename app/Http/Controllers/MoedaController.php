@@ -57,7 +57,8 @@ class MoedaController extends Controller
             return response()->json(['message' => "Não encontrado moeda com este id ($request->id)! "], 404);
         }
 
-        $Moeda->name = $request->name;
+        $Moeda->sigla = $request->sigla;
+        $Moeda->pais = $request->pais;
 
         return response()->json(['message' => 'Moeda atualizada!'], 200);
     }

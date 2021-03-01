@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 
-
 class ProdutosController extends Controller
 {
     public function __construct() {
@@ -25,10 +24,10 @@ class ProdutosController extends Controller
 
     public function create(Request $request)
     {
+
         if (auth()->user()->admin != 1) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-
 
         $validator = Validator::make($request->all(), Produto::$rules, Produto::$messages);
 
@@ -54,28 +53,26 @@ class ProdutosController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-
         $validator = Validator::make($request->all(), Produto::$rules, Produto::$messages);
         if($validator->getMessageBag()->first()){
             return response()->json(['message' => $validator->getMessageBag()], 406);
         }
-
 
         $Produto = Produto::find($request->id);
         if(!$Produto) {
             return response()->json(['message' => 'Não foi encontrado produto com esse "id"!'], 404);
         }
 
-        $name = $request->name;
-        $extension = $request->image->extension();
-        $fileName = "$name.$extension";
-        $request->image->storeAs('produto', $fileName);
+        $Produto->fill($request->except('image'));
 
-        $Produto->image = $fileName;
-        $Produto->name = $request->name;
-        $Produto->price = $request->price;
-        $Produto->quantidade = $request->quantidade;
-        $Produto->moeda = $request->moeda;
+        if ($request->image) {
+            $name = $Produto->name;
+            $extension = $request->image->extension();
+            $fileName = "$name.$extension";
+            $request->image->storeAs('produto', $fileName);
+            $Produto->image = $fileName;
+        }
+
         $Produto->save();
         return response()->json(['message' => 'Produto Atualizado!'], 200);
     }
