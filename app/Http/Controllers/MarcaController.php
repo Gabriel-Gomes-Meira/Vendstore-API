@@ -71,7 +71,7 @@ class MarcaController extends Controller
         $Marca = Marca::find($request->id);
 
         if(!$Marca) {
-            return response()->json(['message' => 'Não foi encontrado Marca com esse "id"!'], 404);
+            return response()->json(['message' => ['Não foi encontrado Marca com esse "id"!']], 404);
         }
 
         $Marca->delete();

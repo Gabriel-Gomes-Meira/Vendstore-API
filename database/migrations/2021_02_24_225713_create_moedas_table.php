@@ -15,7 +15,7 @@ class CreateMoedasTable extends Migration
     {
         Schema::create('moedas', function (Blueprint $table) {
             $table->id();
-            $table->string("sigla")->unsigned();
+            $table->string("sigla")->unique();
             $table->string("pais");
             $table->timestamps();
         });

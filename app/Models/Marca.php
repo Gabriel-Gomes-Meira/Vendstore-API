@@ -14,14 +14,15 @@ class Marca extends Model implements JWTSubject
         'name',
     ];
 
+
     public static $rules = array(
-        'name' => 'required| unique:categorias,name | string'
+        'name' => 'required| string | unique:marcas,name'
     );
 
     public static $messages = array(
         'name.required' => 'Campo "name" é requerido!',
         'name.string' => 'Campo "name" dever ser preenchido com uma string!',
-        'name.unique' => 'Já há categoria com esse nome cadastrada!'
+        'name.unique' => 'Já há Marca com esse nome cadastrada!'
     );
 
     public function getJWTIdentifier() {
