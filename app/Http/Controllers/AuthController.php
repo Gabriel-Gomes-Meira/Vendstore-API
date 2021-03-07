@@ -70,32 +70,27 @@ class AuthController extends Controller
     }
 
 
-    /**
-     * Log the user out (Invalidate the token).
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function logout() {
-        auth()->logout();
+    // /**
+    //  * Log the user out (Invalidate the token).
+    //  *
+    //  * @return \Illuminate\Http\JsonResponse
+    //  */
+    // public function logout() {
+    //     auth()->logout();
 
-        return response()->json(['message' => 'User successfully signed out']);
-    }
+    //     return response()->json(['message' => 'User successfully signed out']);
+    // }
 
-    /**
-     * Refresh a token.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function refresh() {
-        return $this->createNewToken(auth()->refresh());
-    }
+    // /**
+    //  * Refresh a token.
+    //  *
+    //  * @return \Illuminate\Http\JsonResponse
+    //  */
+    // public function refresh() {
+    //     return $this->createNewToken(auth()->refresh());
+    // }
 
-    /**
-     * Get the authenticated User.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function userProfile() {
+    public function Admthencate() {
         if (auth()->user()->admin == 1) {
             return response()->json(['response' => auth()->user()->admin],200);
         }
@@ -104,9 +99,7 @@ class AuthController extends Controller
             return response()->json(['response' => auth()->user()->admin],401);
         }
 
-
         return response()->json(['error' => 'Unauthorized'], 401);
-
     }
 
     /**

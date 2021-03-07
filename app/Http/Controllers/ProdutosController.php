@@ -43,7 +43,8 @@ class ProdutosController extends Controller
 
         $Produto->image = $fileName;
         $Produto->save();
-        return response()->json(['message' => 'Produto Cadastrado!'], 200);
+
+        return response()->json(['message' => 'Produto cadastrado com sucesso!'], 200);
 
     }
 
@@ -53,7 +54,15 @@ class ProdutosController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        $validator = Validator::make($request->all(), Produto::$rules, Produto::$messages);
+        $validator = Validator::make($request->all(), [
+            'name' => "sometimes | unique:produtos,name,$request->id",
+            'price' => 'sometimes | numeric',
+            'quantidade' => 'sometimes | numeric',
+            'image'=>'sometimes | image',
+            'moeda_id' => 'sometimes | exists:App\Models\Moedas,id',
+            'categoria_id' => 'sometimes | exists:App\Models\Categoria,id',
+            'marca_id' => 'sometimes| exists:App\Models\Marca,id',
+        ], Produto::$messages);
         if($validator->getMessageBag()->first()){
             return response()->json(['message' => $validator->getMessageBag()], 406);
         }

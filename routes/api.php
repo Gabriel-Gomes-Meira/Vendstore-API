@@ -3,20 +3,13 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MarcaController;
+use App\Http\Controllers\MoedaController;
 use App\Http\Controllers\ProdutosController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
 
+//For User
 Route::group([
     'middleware' => 'api',
     'prefix' => 'auth'
@@ -24,17 +17,49 @@ Route::group([
 ], function ($router) {
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/register', [AuthController::class, 'register']);
-    Route::get('/admin', [AuthController::class, 'userProfile']);
+    Route::get('/admin', [AuthController::class, 'Admthencate']);
+});
 
-    //For Produtos
-    Route::get('/produtos', [ProdutosController::class, 'index']);
-    Route::post('/produtos/create', [ProdutosController::class, 'create']);
-    Route::post('/produtos/update', [ProdutosController::class, 'update']);
-    Route::post('/produtos/delete', [ProdutosController::class, 'delete']);
+//For Produtos
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'produtos'
+], function ($router) {
+    Route::get('/', [ProdutosController::class, 'index']);
+    Route::post('/create', [ProdutosController::class, 'create']);
+    Route::post('/update', [ProdutosController::class, 'update']);
+    Route::post('/delete', [ProdutosController::class, 'delete']);
+});
 
-    //For Marcas
-    Route::get('/marcas', [MarcaController::class, 'index']);
-    Route::post('/marcas/create', [MarcaController::class, 'create']);
-    Route::post('/marcas/update', [MarcaController::class, 'update']);
-    Route::post('/marcas/delete', [MarcaController::class, 'delete']);
+//For Marcas
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'marcas'
+], function ($router) {
+    Route::get('/', [MarcaController::class, 'index']);
+    Route::post('/create', [MarcaController::class, 'create']);
+    Route::post('/update', [MarcaController::class, 'update']);
+    Route::post('/delete', [MarcaController::class, 'delete']);
+});
+
+//For Categorias
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'categorias'
+], function ($router) {
+    Route::get('/', [CategoriaController::class, 'index']);
+    Route::post('/create', [CategoriaController::class, 'create']);
+    Route::post('/update', [CategoriaController::class, 'update']);
+    Route::post('/delete', [CategoriaController::class, 'delete']);
+});
+
+//For Moedas
+Route::group([
+    'middleware' => 'api',
+    'prefix' => 'moedas'
+], function ($router) {
+    Route::get('/', [MoedaController::class, 'index']);
+    Route::post('/create', [MoedaController::class, 'create']);
+    Route::post('/update', [MoedaController::class, 'update']);
+    Route::post('/delete', [MoedaController::class, 'delete']);
 });

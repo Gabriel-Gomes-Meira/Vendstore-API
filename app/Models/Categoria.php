@@ -15,7 +15,7 @@ class Categoria extends Model implements JWTSubject
     ];
 
     public static $rules = array(
-        'name' => 'required| unique:categorias,name | string'
+        'name' => 'required| unique:categorias,name| string'
     );
 
     public static $messages = array(

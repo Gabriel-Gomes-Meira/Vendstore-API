@@ -35,7 +35,7 @@ class CategoriaController extends Controller
         }
 
         $Categoria = Categoria::create($request->all());
-        return response()->json(['message' => 'Categoria Cadastrado!'], 200);
+        return response()->json(['message' => 'Categoria cadastrada com sucesso!'], 200);
 
     }
 
@@ -76,6 +76,6 @@ class CategoriaController extends Controller
 
         $Categoria->delete();
 
-        return response()->json(['message' => 'Categoria deletada com Sucesso!'], 200);
+        return response()->json(['message' => 'Categoria deletada com sucesso!'], 200);
     }
 }

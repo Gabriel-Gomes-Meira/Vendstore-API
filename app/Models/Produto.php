@@ -14,19 +14,19 @@ class Produto extends Model implements JWTSubject
         'name',
         'image',
         'price',
-        'moeda',
+        'categoria_id',
+        'marca_id',
         'quantidade'
     ];
 
     public static $rules = array(
-        'name' => 'sometimes | required | unique:produtos,name',
-        'price' => 'sometimes | required | numeric',
-        'quantidade' => 'sometimes | required | numeric',
-        'image'=>'sometimes | required | image',
+        'name' => 'required | unique:produtos,name',
+        'price' => 'required | numeric',
+        'quantidade' => 'required | numeric',
+        'image'=>'required | image',
         'moeda_id' => 'sometimes |required | exists:App\Models\Moedas,id',
-        'categoria_id' => 'sometimes | required | exists:App\Models\Categoria,id',
-        'marca_id' => 'sometimes | required | exists:App\Models\Marca,id',
-
+        'categoria_id' => 'required | exists:App\Models\Categoria,id',
+        'marca_id' => 'required | exists:App\Models\Marca,id',
     );
 
 

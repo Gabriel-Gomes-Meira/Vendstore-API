@@ -9,17 +9,15 @@ use Illuminate\Support\Facades\Validator;
 class MoedaController extends Controller
 {
     public function __construct() {
-        $this->middleware('auth:api');
+        $this->middleware('auth:api', ['except' => ['index']]);
     }
 
     public function index()
     {
-        if (auth()->user()->admin != 1) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-
         $Moedas = Moeda::all();
-        return response(['Moedas' => $Moedas], 200);
+        return response()->json([
+            'Moedas' => $Moedas
+        ]);
     }
 
 
@@ -35,7 +33,11 @@ class MoedaController extends Controller
             return response()->json(['message' => $validator->getMessageBag()], 406);
         }
 
-        Moeda::create($request->all());
+        $sigla = strtoupper($request->sigla);
+        Moeda::create([
+            'pais' => $request->pais,
+            'sigla' => $sigla
+        ]);
         return response()->json(['message' => 'Moeda Salva com sucesso!'], 200);
     }
 
@@ -64,16 +66,18 @@ class MoedaController extends Controller
     }
 
 
-    public function delete($id)
+    public function delete(Request $request)
     {
         if (auth()->user()->admin != 1) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        $Moeda = Moeda::find($id);
+        $Moeda = Moeda::find($request->id);
         if(!$Moeda) {
-            return response()->json(['message' => "Não encontrado moeda com este id ($id)! "], 404);
+            return response()->json(['message' => "Não encontrado moeda com este id ($request->id)! "], 404);
         }
+
+        $Moeda->delete();
 
         return response()->json(['message' => 'Registro deletado com sucesso!'], 200);
     }
