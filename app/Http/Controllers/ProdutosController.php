@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Produto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 
 
 class ProdutosController extends Controller
@@ -75,7 +76,8 @@ class ProdutosController extends Controller
         $Produto->fill($request->except('image'));
 
         if ($request->image) {
-            $name = $Produto->name;
+            Storage::delete("produto/$Produto->image");
+            $name = "$Produto->name.".str_replace(':', '_', $Produto->updated_at);
             $extension = $request->image->extension();
             $fileName = "$name.$extension";
             $request->image->storeAs('produto', $fileName);
